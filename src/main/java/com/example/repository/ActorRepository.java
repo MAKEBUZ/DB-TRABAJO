@@ -20,8 +20,8 @@ public class ActorRepository implements Repository<Actor> {
         String sql = "SELECT actor_id, first_name, last_name FROM actor";
         
         try (Connection conn = DatabaseConnection.getInstance();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+             Statement statement = conn.createStatement();
+             ResultSet rs = statement.executeQuery(sql)) {
             
             while (rs.next()) {
                 actors.add(mapActor(rs));
@@ -39,10 +39,10 @@ public class ActorRepository implements Repository<Actor> {
         String sql = "SELECT actor_id, first_name, last_name FROM actor WHERE actor_id = ?";
         
         try (Connection conn = DatabaseConnection.getInstance();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement prepareStatement = conn.prepareStatement(sql)) {
             
-            pstmt.setInt(1, id);
-            try (ResultSet rs = pstmt.executeQuery()) {
+            prepareStatement.setInt(1, id);
+            try (ResultSet rs = prepareStatement.executeQuery()) {
                 if (rs.next()) {
                     return mapActor(rs);
                 }
