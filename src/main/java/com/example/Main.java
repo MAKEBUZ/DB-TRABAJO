@@ -12,13 +12,27 @@ public class Main {
             actorRepository.findAll().forEach(System.out::println);
 
             System.out.println("\n=== Actor con ID 1 ===");
-            Actor actor = actorRepository.getByID(1);
-            System.out.println(actor != null ? actor : "Actor no encontrado");
-            
-            System.out.println("\n=== Actor con ID 980 ===");
-            Actor actor999 = actorRepository.getByID(980);
-            System.out.println(actor999 != null ? actor999 : "Actor no encontrado");
-            
+            Actor actor1 = actorRepository.getByID(1);
+            System.out.println(actor1 != null ? actor1 : "Actor no encontrado");
+
+            System.out.println("\n=== Actualizando actor con ID 1 ===");
+            Actor toUpdate = new Actor(1, "NuevoNombre", "NuevoApellido");
+            actorRepository.save(toUpdate);
+
+            System.out.println("\n=== Insertando nuevo actor ===");
+            Actor newActor = new Actor(969, "ActorNuevo", "ApellidoNuevo");
+            actorRepository.save(newActor);
+
+            System.out.println("\n=== Eliminando actor con ID 999 ===");
+            actorRepository.delete(969);
+
+            System.out.println("\n=== Actor con ID 1 después de actualizar ===");
+            System.out.println(actorRepository.getByID(1));
+
+            System.out.println("\n=== Actor con ID 999 después de eliminar ===");
+            System.out.println(actorRepository.getByID(999) != null ? 
+                "Actor encontrado" : "Actor no encontrado (eliminación exitosa)");
+
         } catch (Exception e) {
             System.err.println("Error en la aplicación: " + e.getMessage());
             e.printStackTrace();
